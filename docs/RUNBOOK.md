@@ -76,3 +76,20 @@ Jika ada error:
 /today
 /config
 ```
+
+`/status` menampilkan mode runtime, ringkasan hari ini, missed PnL, dan posisi/paper position jika provider tersedia.
+
+## Telegram Test Message
+
+Isi env berikut hanya saat ingin test manual:
+
+```env
+TELEGRAM_BOT_TOKEN=
+TELEGRAM_CHAT_ID=
+```
+
+Kirim pesan test:
+
+```sh
+npm run telegram:test-message
+```

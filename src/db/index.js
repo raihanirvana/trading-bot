@@ -1,3 +1,5 @@
+const { JOURNAL_MIGRATION } = require('../journal/schema');
+
 class DatabaseError extends Error {
   constructor(message, details = {}) {
     super(message);
@@ -10,7 +12,8 @@ const MIGRATIONS = Object.freeze([
   {
     id: '000_placeholder',
     description: 'Migration placeholder. Trading schemas are intentionally out of scope for B0-T04.'
-  }
+  },
+  JOURNAL_MIGRATION
 ]);
 
 function validateDatabaseConfig(config) {

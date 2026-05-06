@@ -2,6 +2,9 @@ const DEFAULT_CONFIG = Object.freeze({
   dryRun: true,
   liveTradingEnabled: false,
   autoTradeEnabled: false,
+  signalOnly: false,
+  paperTrading: false,
+  semiAutoEnabled: false,
   nodeEnv: 'development',
   logLevel: 'info',
   databaseUrl: 'memory://local',
@@ -64,6 +67,9 @@ function loadConfig(env = process.env, options = {}) {
     dryRun: parseBoolean(env.DRY_RUN, DEFAULT_CONFIG.dryRun),
     liveTradingEnabled: parseBoolean(env.LIVE_TRADING_ENABLED, DEFAULT_CONFIG.liveTradingEnabled),
     autoTradeEnabled: parseBoolean(env.AUTO_TRADE_ENABLED, DEFAULT_CONFIG.autoTradeEnabled),
+    signalOnly: parseBoolean(env.SIGNAL_ONLY, DEFAULT_CONFIG.signalOnly),
+    paperTrading: parseBoolean(env.PAPER_TRADING, DEFAULT_CONFIG.paperTrading),
+    semiAutoEnabled: parseBoolean(env.SEMI_AUTO_ENABLED, DEFAULT_CONFIG.semiAutoEnabled),
     nodeEnv: env.NODE_ENV || DEFAULT_CONFIG.nodeEnv,
     logLevel: env.LOG_LEVEL || DEFAULT_CONFIG.logLevel,
     databaseUrl: env.DATABASE_URL || DEFAULT_CONFIG.databaseUrl,
@@ -72,6 +78,7 @@ function loadConfig(env = process.env, options = {}) {
     mexcBaseUrl: env.MEXC_BASE_URL || DEFAULT_CONFIG.mexcBaseUrl,
     openRouterApiKey: env.OPENROUTER_API_KEY || '',
     telegramBotToken: env.TELEGRAM_BOT_TOKEN || '',
+    telegramChatId: env.TELEGRAM_CHAT_ID || '',
     exchangeApiKey: env.MEXC_API_KEY || env.EXCHANGE_API_KEY || '',
     exchangeApiSecret: env.MEXC_API_SECRET || env.EXCHANGE_API_SECRET || ''
   };

@@ -54,6 +54,73 @@
 }
 ```
 
+## Journal Tables
+
+### signals
+
+```text
+signal_id TEXT PRIMARY KEY
+symbol TEXT
+timeframe TEXT
+side TEXT
+entry_price REAL
+tp_price REAL
+sl_price REAL
+margin_usd REAL
+leverage INTEGER
+notional_usd REAL
+qty REAL
+bb_width_pct REAL
+adx_15m REAL
+status TEXT
+reasons_json TEXT
+created_at TEXT
+updated_at TEXT
+```
+
+`reasons_json` menyimpan array `Signal.reasons` sebagai JSON string.
+Duplicate signal diabaikan berdasarkan primary key `signal_id`.
+
+### events
+
+```text
+event_id TEXT PRIMARY KEY
+signal_id TEXT REFERENCES signals(signal_id)
+event_type TEXT
+payload_json TEXT
+created_at TEXT
+```
+
+Virtual outcome dicatat sebagai event `VIRTUAL_TP` atau `VIRTUAL_SL`.
+Jika TP dan SL sama-sama tersentuh dalam candle yang sama, replay memakai asumsi konservatif `VIRTUAL_SL`.
+Skipped signal dicatat sebagai event `MISSED_TRADE` dengan `missed_profit_usd`, `avoided_loss_usd`, dan `missed_pnl_usd`.
+
+## DailySummary
+
+```json
+{
+  "date": "2026-05-04",
+  "total_signals": 2,
+  "virtual_tp": 1,
+  "virtual_sl": 1,
+  "missed_trades": 2,
+  "missed_profit_usd": 10.0,
+  "avoided_loss_usd": 10.0,
+  "missed_pnl_usd": 0.0
+}
+```
+
+## Journal CSV Export
+
+Export menghasilkan dua CSV:
+
+```text
+signalsCsv
+eventsCsv
+```
+
+Header mengikuti kolom `signals` dan `events`. Nilai comma, quote, dan newline di-escape sesuai CSV standar.
+
 ## AIDecision
 
 ```json

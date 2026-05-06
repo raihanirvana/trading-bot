@@ -12,7 +12,10 @@
     "start": "node src/index.js",
     "test": "node --test",
     "test:indicators": "node --test tests/adx.test.js tests/atr.test.js tests/bollinger.test.js tests/ema.test.js tests/indicator-compare.test.js tests/relative-volume.test.js",
+    "test:journal": "node --test tests/daily-summary.test.js tests/journal-csv-export.test.js tests/journal-schema.test.js tests/journal-repository.test.js tests/missed-trade.test.js tests/virtual-outcome.test.js",
     "test:signals": "node --test tests/buy-signal.test.js tests/daily-rules.test.js tests/position-sizing.test.js tests/previous-band.test.js tests/sell-signal.test.js tests/signal-evaluator.test.js tests/signal-filters.test.js tests/signal-idempotency.test.js tests/signal-schema.test.js tests/tp-sl.test.js",
+    "test:telegram": "node --test tests/telegram-client.test.js tests/telegram-formatter.test.js tests/telegram-journal-integration.test.js tests/telegram-signal-notifier.test.js tests/telegram-status-command.test.js",
+    "telegram:test-message": "node scripts/send-telegram-test-message.js",
     "typecheck": "node scripts/typecheck-placeholder.js"
   },
   "engines": {

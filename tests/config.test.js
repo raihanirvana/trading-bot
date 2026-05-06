@@ -14,6 +14,9 @@ describe('environment config', () => {
     assert.equal(config.dryRun, true);
     assert.equal(config.liveTradingEnabled, false);
     assert.equal(config.autoTradeEnabled, false);
+    assert.equal(config.signalOnly, false);
+    assert.equal(config.paperTrading, false);
+    assert.equal(config.semiAutoEnabled, false);
     assert.equal(config.nodeEnv, 'development');
     assert.equal(config.logLevel, 'info');
     assert.equal(config.databaseUrl, 'memory://local');
@@ -27,23 +30,33 @@ describe('environment config', () => {
       DRY_RUN: 'false',
       LIVE_TRADING_ENABLED: 'true',
       AUTO_TRADE_ENABLED: 'false',
+      SIGNAL_ONLY: 'true',
+      PAPER_TRADING: 'true',
+      SEMI_AUTO_ENABLED: 'true',
       NODE_ENV: 'test',
       LOG_LEVEL: 'debug',
       DATABASE_URL: 'memory://test',
       AI_PROVIDER: 'openrouter',
       EXCHANGE_NAME: 'mexc',
-      MEXC_BASE_URL: 'https://example.test'
+      MEXC_BASE_URL: 'https://example.test',
+      TELEGRAM_BOT_TOKEN: 'telegram-token',
+      TELEGRAM_CHAT_ID: 'telegram-chat'
     });
 
     assert.equal(config.dryRun, false);
     assert.equal(config.liveTradingEnabled, true);
     assert.equal(config.autoTradeEnabled, false);
+    assert.equal(config.signalOnly, true);
+    assert.equal(config.paperTrading, true);
+    assert.equal(config.semiAutoEnabled, true);
     assert.equal(config.nodeEnv, 'test');
     assert.equal(config.logLevel, 'debug');
     assert.equal(config.databaseUrl, 'memory://test');
     assert.equal(config.aiProvider, 'openrouter');
     assert.equal(config.exchangeName, 'mexc');
     assert.equal(config.mexcBaseUrl, 'https://example.test');
+    assert.equal(config.telegramBotToken, 'telegram-token');
+    assert.equal(config.telegramChatId, 'telegram-chat');
   });
 
   it('throws a config error when required env is missing', () => {
@@ -61,6 +74,7 @@ describe('environment config', () => {
     const sanitized = sanitizeConfigForLogs(loadConfig({
       OPENROUTER_API_KEY: 'openrouter-secret',
       TELEGRAM_BOT_TOKEN: 'telegram-secret',
+      TELEGRAM_CHAT_ID: 'telegram-chat',
       MEXC_API_KEY: 'mexc-key',
       MEXC_API_SECRET: 'mexc-secret',
       LOG_LEVEL: 'debug'
@@ -68,6 +82,7 @@ describe('environment config', () => {
 
     assert.equal(sanitized.openRouterApiKey, '[REDACTED]');
     assert.equal(sanitized.telegramBotToken, '[REDACTED]');
+    assert.equal(sanitized.telegramChatId, 'telegram-chat');
     assert.equal(sanitized.exchangeApiKey, '[REDACTED]');
     assert.equal(sanitized.exchangeApiSecret, '[REDACTED]');
     assert.equal(sanitized.logLevel, 'debug');
