@@ -13,10 +13,12 @@ Semua ticket yang mengubah logic wajib punya unit test.
 ```sh
 npm test
 npm run test:indicators
+npm run test:signals
 npm run ci
 ```
 
 `npm run test:indicators` wajib hijau sebelum keluar dari B1.
+`npm run test:signals` wajib hijau sebelum keluar dari B2.
 
 ## Wajib Unit Test Untuk
 

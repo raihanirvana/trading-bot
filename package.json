@@ -12,6 +12,7 @@
     "start": "node src/index.js",
     "test": "node --test",
     "test:indicators": "node --test tests/adx.test.js tests/atr.test.js tests/bollinger.test.js tests/ema.test.js tests/indicator-compare.test.js tests/relative-volume.test.js",
+    "test:signals": "node --test tests/buy-signal.test.js tests/daily-rules.test.js tests/position-sizing.test.js tests/previous-band.test.js tests/sell-signal.test.js tests/signal-evaluator.test.js tests/signal-filters.test.js tests/signal-idempotency.test.js tests/signal-schema.test.js tests/tp-sl.test.js",
     "typecheck": "node scripts/typecheck-placeholder.js"
   },
   "engines": {
