@@ -8,6 +8,16 @@ No unit test = not done.
 
 Semua ticket yang mengubah logic wajib punya unit test.
 
+## Commands
+
+```sh
+npm test
+npm run test:indicators
+npm run ci
+```
+
+`npm run test:indicators` wajib hijau sebelum keluar dari B1.
+
 ## Wajib Unit Test Untuk
 
 ```text

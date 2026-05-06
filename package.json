@@ -6,10 +6,12 @@
   "type": "commonjs",
   "scripts": {
     "ci": "npm run lint && npm run typecheck && npm test",
+    "compare:indicators": "node scripts/compare-indicators.js",
     "health": "node src/health.js",
     "lint": "node scripts/check-js-syntax.js",
     "start": "node src/index.js",
     "test": "node --test",
+    "test:indicators": "node --test tests/adx.test.js tests/atr.test.js tests/bollinger.test.js tests/ema.test.js tests/indicator-compare.test.js tests/relative-volume.test.js",
     "typecheck": "node scripts/typecheck-placeholder.js"
   },
   "engines": {

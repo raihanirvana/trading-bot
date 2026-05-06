@@ -6,7 +6,8 @@ const DEFAULT_CONFIG = Object.freeze({
   logLevel: 'info',
   databaseUrl: 'memory://local',
   aiProvider: 'openrouter',
-  exchangeName: 'mexc'
+  exchangeName: 'mexc',
+  mexcBaseUrl: 'https://api.mexc.fm'
 });
 
 const DEFAULT_REQUIRED_ENV = Object.freeze([]);
@@ -68,6 +69,7 @@ function loadConfig(env = process.env, options = {}) {
     databaseUrl: env.DATABASE_URL || DEFAULT_CONFIG.databaseUrl,
     aiProvider: env.AI_PROVIDER || DEFAULT_CONFIG.aiProvider,
     exchangeName: env.EXCHANGE_NAME || DEFAULT_CONFIG.exchangeName,
+    mexcBaseUrl: env.MEXC_BASE_URL || DEFAULT_CONFIG.mexcBaseUrl,
     openRouterApiKey: env.OPENROUTER_API_KEY || '',
     telegramBotToken: env.TELEGRAM_BOT_TOKEN || '',
     exchangeApiKey: env.MEXC_API_KEY || env.EXCHANGE_API_KEY || '',

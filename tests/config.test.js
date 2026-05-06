@@ -19,6 +19,7 @@ describe('environment config', () => {
     assert.equal(config.databaseUrl, 'memory://local');
     assert.equal(config.aiProvider, 'openrouter');
     assert.equal(config.exchangeName, 'mexc');
+    assert.equal(config.mexcBaseUrl, 'https://api.mexc.fm');
   });
 
   it('loads explicit environment values', () => {
@@ -30,7 +31,8 @@ describe('environment config', () => {
       LOG_LEVEL: 'debug',
       DATABASE_URL: 'memory://test',
       AI_PROVIDER: 'openrouter',
-      EXCHANGE_NAME: 'mexc'
+      EXCHANGE_NAME: 'mexc',
+      MEXC_BASE_URL: 'https://example.test'
     });
 
     assert.equal(config.dryRun, false);
@@ -41,6 +43,7 @@ describe('environment config', () => {
     assert.equal(config.databaseUrl, 'memory://test');
     assert.equal(config.aiProvider, 'openrouter');
     assert.equal(config.exchangeName, 'mexc');
+    assert.equal(config.mexcBaseUrl, 'https://example.test');
   });
 
   it('throws a config error when required env is missing', () => {

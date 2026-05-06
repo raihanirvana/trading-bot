@@ -78,6 +78,7 @@ Exchange target untuk market data, testnet, dan order execution adalah MEXC.
 
 ```env
 EXCHANGE_NAME=mexc
+MEXC_BASE_URL=https://api.mexc.fm
 MEXC_API_KEY=
 MEXC_API_SECRET=
 ```
