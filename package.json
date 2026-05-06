@@ -1,0 +1,18 @@
+{
+  "name": "trading-robot-full-process-pack",
+  "version": "0.1.0",
+  "private": true,
+  "description": "BB mean-reversion trading robot scaffold.",
+  "type": "commonjs",
+  "scripts": {
+    "ci": "npm run lint && npm run typecheck && npm test",
+    "health": "node src/health.js",
+    "lint": "node scripts/check-js-syntax.js",
+    "start": "node src/index.js",
+    "test": "node --test",
+    "typecheck": "node scripts/typecheck-placeholder.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
