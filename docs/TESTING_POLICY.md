@@ -15,6 +15,7 @@ npm test
 npm run test:ai
 npm run test:indicators
 npm run test:journal
+npm run test:paper
 npm run test:signals
 npm run test:telegram
 npm run ci
@@ -23,6 +24,7 @@ npm run ci
 `npm run test:indicators` wajib hijau sebelum keluar dari B1.
 `npm run test:signals` wajib hijau sebelum keluar dari B2.
 `npm run test:journal` wajib hijau untuk ticket journal B3.
+`npm run test:paper` wajib hijau sebelum keluar dari B5.
 `npm run test:telegram` wajib hijau untuk ticket Telegram B3.
 `npm run test:ai` wajib hijau untuk ticket AI B4.
 Integrasi Telegram/journal B3 wajib mock Telegram dan mock DB; live Telegram tidak wajib untuk unit/CI.
