@@ -7,6 +7,8 @@ You are not allowed to create a new strategy.
 You are not allowed to change entry, TP, SL, leverage, margin, or trade direction.
 You must only classify the provided setup.
 
+Production source of truth: `src/ai/prompt.js`.
+
 Hard rules:
 - If bb_width_pct < 0.6, action must be "BLOCK".
 - If bb_width_pct > 2.5 and adx_15m > 35, action must be "BLOCK".

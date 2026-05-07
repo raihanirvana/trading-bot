@@ -9,12 +9,16 @@ const DEFAULT_CONFIG = Object.freeze({
   logLevel: 'info',
   databaseUrl: 'memory://local',
   aiProvider: 'openrouter',
+  aiFallbackMode: 'rule_based',
+  openRouterBaseUrl: 'https://openrouter.ai/api/v1',
+  openRouterModel: 'openai/gpt-4o-mini',
   exchangeName: 'mexc',
   mexcBaseUrl: 'https://api.mexc.fm'
 });
 
 const DEFAULT_REQUIRED_ENV = Object.freeze([]);
 const SECRET_KEY_PATTERN = /(secret|token|password|api_?key|private_?key)/i;
+const AI_FALLBACK_MODES = Object.freeze(['rule_based', 'skip']);
 
 class ConfigError extends Error {
   constructor(message, details = {}) {
@@ -46,6 +50,22 @@ function parseBoolean(value, defaultValue) {
   throw new ConfigError(`Invalid boolean value: ${value}`);
 }
 
+function parseAiFallbackMode(value, defaultValue = DEFAULT_CONFIG.aiFallbackMode) {
+  if (value === undefined || value === null || value === '') {
+    return defaultValue;
+  }
+
+  const normalized = String(value).trim().toLowerCase();
+
+  if (!AI_FALLBACK_MODES.includes(normalized)) {
+    throw new ConfigError(`Invalid AI fallback mode: ${value}`, {
+      allowed: AI_FALLBACK_MODES
+    });
+  }
+
+  return normalized;
+}
+
 function getDefaultConfig() {
   return { ...DEFAULT_CONFIG };
 }
@@ -74,6 +94,9 @@ function loadConfig(env = process.env, options = {}) {
     logLevel: env.LOG_LEVEL || DEFAULT_CONFIG.logLevel,
     databaseUrl: env.DATABASE_URL || DEFAULT_CONFIG.databaseUrl,
     aiProvider: env.AI_PROVIDER || DEFAULT_CONFIG.aiProvider,
+    aiFallbackMode: parseAiFallbackMode(env.AI_FALLBACK_MODE, DEFAULT_CONFIG.aiFallbackMode),
+    openRouterBaseUrl: env.OPENROUTER_BASE_URL || DEFAULT_CONFIG.openRouterBaseUrl,
+    openRouterModel: env.OPENROUTER_MODEL || DEFAULT_CONFIG.openRouterModel,
     exchangeName: env.EXCHANGE_NAME || DEFAULT_CONFIG.exchangeName,
     mexcBaseUrl: env.MEXC_BASE_URL || DEFAULT_CONFIG.mexcBaseUrl,
     openRouterApiKey: env.OPENROUTER_API_KEY || '',
@@ -98,10 +121,12 @@ function shouldRedactKey(key) {
 }
 
 module.exports = {
+  AI_FALLBACK_MODES,
   ConfigError,
   DEFAULT_CONFIG,
   getDefaultConfig,
   loadConfig,
+  parseAiFallbackMode,
   sanitizeConfigForLogs,
   shouldRedactKey,
   validateRequiredEnv

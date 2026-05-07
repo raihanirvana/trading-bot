@@ -134,6 +134,106 @@ Header mengikuti kolom `signals` dan `events`. Nilai comma, quote, dan newline d
 }
 ```
 
+AI decision audit trail disimpan sebagai event `AI_DECISION` dengan payload:
+
+```json
+{
+  "signal_id": "ETHUSDT-15m-20260504T120000Z-SELL",
+  "ai_input": {},
+  "raw_response": {},
+  "parsed_decision": {},
+  "final_decision": {}
+}
+```
+
+## PostSLAnalysis
+
+Post-SL reasoning memakai payload `ai-post-sl-input-v1` dan hanya berjalan setelah event `VIRTUAL_SL`.
+
+AI post-SL label disimpan sebagai event `POST_SL_ANALYSIS` dengan payload:
+
+```json
+{
+  "signal_id": "ETHUSDT-15m-20260504T120000Z-BUY",
+  "post_sl_payload": {},
+  "raw_response": {},
+  "loss_label": {
+    "loss_type": "BAD_ENTRY",
+    "confidence": "MEDIUM",
+    "reason": "Entry was too close to SL.",
+    "fallback": false
+  }
+}
+```
+
+Allowed `loss_type`: `TREND_CONTINUATION`, `VOLATILITY_SPIKE`, `BAD_ENTRY`, `NOISE`, `UNKNOWN`.
+
+## AIConfidenceCalibration
+
+AI confidence calibration disimpan sebagai event `AI_CONFIDENCE_CALIBRATION`. Data ini hanya untuk audit akurasi confidence, bukan untuk model training otomatis.
+
+```json
+{
+  "signal_id": "ETHUSDT-15m-20260504T120000Z-BUY",
+  "source_event_type": "POST_SL_ANALYSIS",
+  "source_event_id": "ETHUSDT-15m-20260504T120000Z-BUY-POST_SL_ANALYSIS-20260504T121600Z",
+  "confidence": "MEDIUM",
+  "confidence_score": 0.66,
+  "predicted_label": "BAD_ENTRY",
+  "actual_label": "BAD_ENTRY",
+  "correct": true,
+  "outcome": {
+    "status": "SL",
+    "exit_reason": "VIRTUAL_SL"
+  },
+  "observed_at": "2026-05-04T12:30:00.000Z",
+  "metadata": {}
+}
+```
+
+Jika belum ada label aktual/manual review, `actual_label` dan `correct` boleh `null` sementara outcome tetap tersimpan.
+
+## AIRiskInput
+
+```json
+{
+  "schema_version": "ai-risk-input-v1",
+  "task": "RISK_CLASSIFICATION",
+  "signal": {
+    "signal_id": "ETHUSDT-15m-20260504T120000Z-SELL",
+    "symbol": "ETHUSDT",
+    "side": "SELL",
+    "entry_price": 3030.0,
+    "tp_price": 3017.88,
+    "sl_price": 3042.12,
+    "margin_usd": 25.0,
+    "leverage": 100
+  },
+  "indicators": {
+    "bb_width_pct": 1.2,
+    "adx_15m": 24.0,
+    "ema200": 2980.0,
+    "atr_pct": 0.4,
+    "relative_volume": 1.2,
+    "setup_against_ema200": true
+  },
+  "state": {
+    "daily_pnl_usd": 12.0,
+    "daily_target_hit": false,
+    "daily_loss_hit": false,
+    "has_active_position": false
+  },
+  "hard_rules": {
+    "bb_width_minimum_block": false,
+    "anti_band_walk_block": false,
+    "daily_target_block": false,
+    "daily_loss_block": false
+  }
+}
+```
+
+Payload AI tidak boleh membawa secret seperti token, API key, atau private key.
+
 ## VirtualOrder
 
 ```json

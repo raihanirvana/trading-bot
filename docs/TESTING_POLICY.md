@@ -12,6 +12,7 @@ Semua ticket yang mengubah logic wajib punya unit test.
 
 ```sh
 npm test
+npm run test:ai
 npm run test:indicators
 npm run test:journal
 npm run test:signals
@@ -23,6 +24,7 @@ npm run ci
 `npm run test:signals` wajib hijau sebelum keluar dari B2.
 `npm run test:journal` wajib hijau untuk ticket journal B3.
 `npm run test:telegram` wajib hijau untuk ticket Telegram B3.
+`npm run test:ai` wajib hijau untuk ticket AI B4.
 Integrasi Telegram/journal B3 wajib mock Telegram dan mock DB; live Telegram tidak wajib untuk unit/CI.
 
 ## Wajib Unit Test Untuk

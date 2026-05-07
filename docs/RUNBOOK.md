@@ -6,6 +6,8 @@ Provider default:
 
 ```env
 AI_PROVIDER=openrouter
+OPENROUTER_BASE_URL=https://openrouter.ai/api/v1
+OPENROUTER_MODEL=openai/gpt-4o-mini
 EXCHANGE_NAME=mexc
 ```
 
